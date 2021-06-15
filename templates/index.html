@@ -1,0 +1,99 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body style="border: solid; border-radius: 15px; border-color: black; background-color: grey;">
+    <style>
+    .button {
+  background-color: #03fcc2; /* Green */
+  border: none;
+  border-radius: 10px;
+  color: white;
+  width:130px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+  </style>
+  <div class = "container" style="margin-left: auto; margin-right: auto;">
+    <a href="https://github.com/GianisTsol/pixels" class="button">Client</a>
+    <a href="https://app.gitbook.com/@gianistsol/s/church-of-pepe/" class="button">API Dcos</a>
+    <a href="http://churchofpepe.ddns.net:5000/" class="button">Homepage</a>
+  </div>
+    <h1 style="text-align: center;">CHURCH OF PEPE PROJECTS</h1>
+    <div class = "container" style="margin-left: auto; margin-right: auto;">
+      <div class="row">
+          <div class="name" style="font-weight: 900; font-size:24px;">NAME</div><div class="score" style="font-weight: 900; font-size:24px;">COORDS</div>
+      </div>
+      {% for i in projects.keys() %}
+      <div class="row">
+          <div class="name">{{ i }}</div><div class="score">{{ projects[i]["coords"] }}</div>  <img style="align:right; margin-left:95%; margin-top:-6%; position: relative;	display: inline-block;" src="{{url_for('static', filename=projects[i]["image"])}}" />
+      </div>
+      {% endfor %}
+
+    <br/>
+    <h1 style="text-align: center;">CHURCH OF PEPE SCOREBOARD</h1>
+    <div class="container" style="margin-left: auto; margin-right: auto;">
+      <div class="row">
+          <div class="name" style="font-weight: 900; font-size:24px;">NAME</div><div class="score" style="font-weight: 900; font-size:24px;">PIXELS PLACED</div>
+      </div>
+      {% for i in members %}
+      <div class="row">
+          <div class="name">{{ members[i]["name"] }}</div><div class="score">{{ members[i]["score"] }}</div>
+      </div>
+      {% endfor %}
+
+      <br/>
+      <h1 style="text-align: center;">Current canvas</h1>
+  <img src="{{url_for('static', filename='canvas.png')}}" class="container"/>
+  </div>
+
+    <style media="screen">
+.container {
+	width: 650px;
+	height: auto;
+}
+
+.row {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #AFAFAF;
+}
+
+.name {
+	position: relative;
+	display: inline-block;
+	width: 50%;
+	line-height: 45px;
+  font-size:24px;
+}
+
+.score {
+	position: relative;
+	display: inline-block;
+	width: 50%;
+  font-size:24px;
+}
+    </style>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', () => {
+  let elements = []
+  let container = document.querySelector('#container')
+  // Add each row to the array
+  container.querySelectorAll('.row').forEach(el => elements.push(el))
+  // Clear the container
+  container.innerHTML = ''
+  // Sort the array from highest to lowest
+  elements.sort((a, b) => b.querySelector('.score').textContent - a.querySelector('.score').textContent)
+  // Put the elements back into the container
+  elements.forEach(e => container.appendChild(e))
+})
+    </script>
+  </body>
+</html>
